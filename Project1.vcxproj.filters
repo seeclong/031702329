@@ -18,37 +18,10 @@
     <ClCompile Include="源.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\jsoncpp-src-0.5.0\src\lib_json\json_reader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\jsoncpp-src-0.5.0\src\lib_json\json_value.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\jsoncpp-src-0.5.0\src\lib_json\json_writer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="h1.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\jsoncpp-src-0.5.0\include\json\json.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\jsoncpp-src-0.5.0\src\lib_json\json_batchallocator.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\jsoncpp-src-0.5.0\src\lib_json\json_internalarray.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="..\jsoncpp-src-0.5.0\src\lib_json\json_internalmap.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="..\jsoncpp-src-0.5.0\src\lib_json\json_valueiterator.inl">
-      <Filter>头文件</Filter>
-    </None>
-    <None Include="..\jsoncpp-src-0.5.0\src\lib_json\sconscript" />
   </ItemGroup>
 </Project>
