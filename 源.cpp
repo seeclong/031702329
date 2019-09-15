@@ -32,8 +32,8 @@ int main(int argv, char** argc)
 		all.push_back(line);
 		cout << all[count-1]<<endl;
 	}
-	ofile <<'['<<endl;
-	cout << '['<<endl;
+	ofile <<'[';
+	//cout << '['<<endl;
 	for (int i = 0; i < count; i++)
 	{
 		int count = 0, j = 0, len, pos;
@@ -49,14 +49,14 @@ int main(int argv, char** argc)
 			areas.push_back(divide_address_5(temp));
 			json = "{\"姓名\":\"" + name[i] + "\",\"手机\":\"" + tel[i] + "\",\"地址\":[\"" + areas[i].province + "\",\"" + areas[i].city + "\",\"" + areas[i].district + "\",\"" + areas[i].town + "\",\"" + areas[i].street + "\"]}";
 			ofile<< json<<endl;
-			cout << json<<endl;
+			//cout << json<<endl;
 		}
 		else if (all[i][0] == '2')
 		{
 			areas.push_back(divide_address_7(temp));
 			json = "{\"姓名\":\"" + name[i] + "\",\"手机\":\"" + tel[i] + "\",\"地址\":[\"" + areas[i].province + "\",\"" + areas[i].city + "\",\"" + areas[i].district + "\",\"" + areas[i].town + "\",\"" + areas[i].street + "\",\"" + areas[i].t1 + "\",\"" + areas[i].t2 + "\"]}";
 			ofile << json << endl;
-			cout << json << endl;
+			//cout << json << endl;
 		}
 		else
 		{
@@ -64,7 +64,7 @@ int main(int argv, char** argc)
 			areas.push_back(divide_address_7(temp));
 			json = "{\"姓名\":\"" + name[i] + "\",\"手机\":\"" + tel[i] + "\",\"地址\":[\"" + areas[i].province + "\",\"" + areas[i].city + "\",\"" + areas[i].district + "\",\"" + areas[i].town + "\",\"" + areas[i].street + "\",\"" + areas[i].t1 + "\",\"" + areas[i].t2 + "\"]}";
 			ofile << json << endl;
-			cout << json << endl;
+			//cout << json << endl;
 		}
 		
 		//temp["姓名"] = name[i];
@@ -79,14 +79,7 @@ int main(int argv, char** argc)
 	//ofile<< root.toStyledString();
 	//cout << root.toStyledString();
 	ofile << ']' ;
-	cout << ']';
+	//cout << ']';
 	ifile.close();
 	ofile.close();
-}
-void jsonout(int c,area a)
-{
-	if (c == 5)
-	{
-		c=5;
-	}
 }
