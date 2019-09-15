@@ -9,12 +9,14 @@
 
 void jsonout(int c, area a);
 
-int main()
+int main(int argv, char** argc)
 {
 	ifstream ifile;     //说明输入文件流对象ifile    
 	ofstream ofile;     //说明输出文件流对象ofile
-	ifile.open("1.txt");
-	ofile.open("2.txt");
+	//ifile.open("1.txt");
+	//ofile.open("2.txt");
+	ifile.open(argc[1]);
+	ofile.open(argc[2]);
 	smatch result1, result2;
 	regex pattern1("\\d{11}"), pattern2("(.*)省(.*)市(.*)区");
 	string json;
