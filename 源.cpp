@@ -47,14 +47,30 @@ int main(int argv, char** argc)
 		if (all[i][0] == '1')
 		{
 			areas.push_back(divide_address_5(temp));
-			json = "{\"姓名\":\"" + name[i] + "\",\"手机\":\"" + tel[i] + "\",\"地址\":[\"" + areas[i].province + "\",\"" + areas[i].city + "\",\"" + areas[i].district + "\",\"" + areas[i].town + "\",\"" + areas[i].street + "\"]}";
+			if (i == count - 1)
+			{
+				json = "{\"姓名\":\"" + name[i] + "\",\"手机\":\"" + tel[i] + "\",\"地址\":[\"" + areas[i].province + "\",\"" + areas[i].city + "\",\"" + areas[i].district + "\",\"" + areas[i].town + "\",\"" + areas[i].street + "\"]}]";
+			}
+			else
+			{
+				json = "{\"姓名\":\"" + name[i] + "\",\"手机\":\"" + tel[i] + "\",\"地址\":[\"" + areas[i].province + "\",\"" + areas[i].city + "\",\"" + areas[i].district + "\",\"" + areas[i].town + "\",\"" + areas[i].street + "\"]},";
+			}
 			ofile<< json<<endl;
 			//cout << json<<endl;
 		}
 		else if (all[i][0] == '2')
 		{
 			areas.push_back(divide_address_7(temp));
-			json = "{\"姓名\":\"" + name[i] + "\",\"手机\":\"" + tel[i] + "\",\"地址\":[\"" + areas[i].province + "\",\"" + areas[i].city + "\",\"" + areas[i].district + "\",\"" + areas[i].town + "\",\"" + areas[i].street + "\",\"" + areas[i].t1 + "\",\"" + areas[i].t2 + "\"]}";
+			if (i == count - 1)
+			{
+				json = "{\"姓名\":\"" + name[i] + "\",\"手机\":\"" + tel[i] + "\",\"地址\":[\"" + areas[i].province + "\",\"" + areas[i].city + "\",\"" + areas[i].district + "\",\"" + areas[i].town + "\",\"" + areas[i].street + "\",\"" + areas[i].t1 + "\",\"" + areas[i].t2 + "\"]}]";
+
+			}
+			else
+			{
+				json = "{\"姓名\":\"" + name[i] + "\",\"手机\":\"" + tel[i] + "\",\"地址\":[\"" + areas[i].province + "\",\"" + areas[i].city + "\",\"" + areas[i].district + "\",\"" + areas[i].town + "\",\"" + areas[i].street + "\",\"" + areas[i].t1 + "\",\"" + areas[i].t2 + "\"]},";
+
+			}
 			ofile << json << endl;
 			//cout << json << endl;
 		}
@@ -62,7 +78,14 @@ int main(int argv, char** argc)
 		{
 			
 			areas.push_back(divide_address_7(temp));
-			json = "{\"姓名\":\"" + name[i] + "\",\"手机\":\"" + tel[i] + "\",\"地址\":[\"" + areas[i].province + "\",\"" + areas[i].city + "\",\"" + areas[i].district + "\",\"" + areas[i].town + "\",\"" + areas[i].street + "\",\"" + areas[i].t1 + "\",\"" + areas[i].t2 + "\"]}";
+			if (i == count - 1)
+			{
+				json = "{\"姓名\":\"" + name[i] + "\",\"手机\":\"" + tel[i] + "\",\"地址\":[\"" + areas[i].province + "\",\"" + areas[i].city + "\",\"" + areas[i].district + "\",\"" + areas[i].town + "\",\"" + areas[i].street + "\",\"" + areas[i].t1 + "\",\"" + areas[i].t2 + "\"]}]";
+			}
+			else
+			{
+				json = "{\"姓名\":\"" + name[i] + "\",\"手机\":\"" + tel[i] + "\",\"地址\":[\"" + areas[i].province + "\",\"" + areas[i].city + "\",\"" + areas[i].district + "\",\"" + areas[i].town + "\",\"" + areas[i].street + "\",\"" + areas[i].t1 + "\",\"" + areas[i].t2 + "\"]},";
+			}			
 			ofile << json << endl;
 			//cout << json << endl;
 		}
@@ -78,7 +101,7 @@ int main(int argv, char** argc)
 	}
 	//ofile<< root.toStyledString();
 	//cout << root.toStyledString();
-	ofile << ']' ;
+	//ofile << ']' ;
 	//cout << ']';
 	ifile.close();
 	ofile.close();
