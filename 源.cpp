@@ -36,7 +36,7 @@ int main()
 	{
 		int count = 0, j = 0, len, pos;
 		pos = all[i].find(',');
-		name.push_back(all[i].substr(2, pos));
+		name.push_back(all[i].substr(2, pos-2));
 		address.push_back(all[i].substr(pos + 1));
 		regex_search(address[i], result1, pattern1);
 		tel.push_back(result1[0]);
@@ -58,6 +58,7 @@ int main()
 		}
 		else
 		{
+			
 			areas.push_back(divide_address_7(temp));
 			json = "{\"姓名\":\"" + name[i] + "\",\"手机\":\"" + tel[i] + "\",\"地址\":[\"" + areas[i].province + "\",\"" + areas[i].city + "\",\"" + areas[i].district + "\",\"" + areas[i].town + "\",\"" + areas[i].street + "\",\"" + areas[i].t1 + "\",\"" + areas[i].t2 + "\"]}";
 			ofile << json << endl;
