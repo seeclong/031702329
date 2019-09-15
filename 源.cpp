@@ -30,7 +30,7 @@ int main(int argv, char** argc)
 	{
 		count++;
 		all.push_back(line);
-		cout << all[count-1]<<endl;
+		//cout << all[count-1]<<endl;
 	}
 	ofile <<'[';
 	//cout << '['<<endl;
