@@ -36,7 +36,7 @@ int main(int argv, char** argc)
 	//cout << '['<<endl;
 	for (int i = 0; i < count; i++)
 	{
-		int count = 0, j = 0, len, pos;
+		int  j = 0, len, pos;
 		pos = all[i].find(',');
 		name.push_back(all[i].substr(2, pos-2));
 		address.push_back(all[i].substr(pos + 1));
