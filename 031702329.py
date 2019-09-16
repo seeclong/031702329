@@ -1,4 +1,5 @@
-# -*- coding: UTF-8 -*- 
+#!/usr/bin/env python
+#-*- coding: utf-8 -*- 
 import requests
 import json
 import re
@@ -134,14 +135,14 @@ def divide_address_5(address):
             pos1 = address.find(city_[k])#福州市
             if pos1 > -1:               
                 city= city_[k]
-                address = address[pos1 + len(city_[k])+2:]
+                address = address[pos1 + len(city_[k]):]
                 break
                 
             pos1 = address.find(city_[k][0: len(city_[k]) - 1])#福州
             if pos1 > -1:
                 
                 city = city_[k]
-                address = address[pos1 + len(city_[k])+ 1:]
+                address = address[pos1 + len(city_[k])-1:]
                 break 
             k+=1
             
@@ -205,9 +206,8 @@ def divide_address_7(address):
     k = 0
     flag=0
     if pos1>-1:
-        province = address[0: pos1 +1 ]#/福建省
-        address = address[pos1+1:]
-    
+        province = address[0: pos1 +1 ]#福建省
+        address = address[pos1+1:]    
     else:
         k=0
         while k < 4:
@@ -248,14 +248,14 @@ def divide_address_7(address):
             pos1 = address.find(city_[k])#福州市
             if pos1 > -1:               
                 city= city_[k]
-                address = address[pos1 + len(city_[k])+2:]
+                address = address[pos1 + len(city_[k]):]
                 break
                 
             pos1 = address.find(city_[k][0: len(city_[k]) - 1])#福州
             if pos1 > -1:
                 
                 city = city_[k]
-                address = address[pos1 + len(city_[k])+1:]
+                address = address[pos1 + len(city_[k])-1:]
                 break 
             k+=1
             
@@ -371,12 +371,22 @@ def main():
     a = pattern.search( add)
     tel=a.group(0)
     temp =pattern.sub('',temp)'''
-    print('1')
 
+    i=0
+    count=0
+    while i<len(temp):
+        if temp[i]=='1':
+            while count<=11  and  '0'<=temp[i]<='9':
+                count+=1
+                if count==11:
+                    tel=temp[i-10:i+1]
+                    temp=temp[:i-10]+temp[i+1:]
+                    break
+                i+=1
+                
+        i+=1
     
-    tel,temp=sub_tel(temp)
     temp =temp[0:len(temp)-1]
-    print('2')
     if add[0] == '1':
     
         province, city, district, town, street= divide_address_5(temp)
