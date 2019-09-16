@@ -371,9 +371,10 @@ def main():
     a = pattern.search( add)
     tel=a.group(0)
     temp =pattern.sub('',temp)'''
+    print('1')
     tel,temp=sub_tel(temp)
     temp =temp[0:len(temp)-1]
-
+    print('2')
     if add[0] == '1':
     
         province, city, district, town, street= divide_address_5(temp)
