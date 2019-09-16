@@ -49,7 +49,7 @@ def sub_tel(a):
                 count+=1
                 if count==11:
                     tel=a[i-10:i+1]
-                    add=a[:i-9]+a[i+1:]
+                    add=a[:i-10]+a[i+1:]
                     break
                 i+=1
                 
@@ -372,19 +372,7 @@ def main():
     tel=a.group(0)
     temp =pattern.sub('',temp)'''
 
-    i=0
-    count=0
-    while i<len(temp):
-        if temp[i]=='1':
-            while count<=11  and  '0'<=temp[i]<='9':
-                count+=1
-                if count==11:
-                    tel=temp[i-10:i+1]
-                    temp=temp[:i-10]+temp[i+1:]
-                    break
-                i+=1
-                
-        i+=1
+    tel,temp=sub_tel(temp)
     
     temp =temp[0:len(temp)-1]
     if add[0] == '1':
