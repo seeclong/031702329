@@ -349,9 +349,10 @@ def main():
     pos = add.find(',')
     name=add[2: pos]
     temp=add[pos + 1:]
-    a = re.search("1[0-9]{10}", add)
+    pattern = re.compile(r'1[0-9]{10}')
+    a = pattern.search( add)
     tel=a.group(0)
-    temp =re.sub("1[0-9]{10}","", temp)
+    temp =pattern.sub('',temp)
     temp =temp[0:len(temp)-1]
 
     if add[0] == '1':
