@@ -39,6 +39,24 @@ city_= [ "东城区","西城区","崇文区","宣武区","朝阳区","海淀区"
 				"台北市","高雄市","基隆市","台中市","台南市","新竹市","嘉义市","台北县","宜兰县","桃园县","新竹县","苗栗县","台中县","彰化县","南投县","云林县","嘉义县","台南县","高雄县","屏东县","澎湖县","台东县","花莲县",
 				"中西区","东区","九龙城区","观塘区","南区","深水埗区","黄大仙区","湾仔区","油尖旺区","离岛区","葵青区","北区","西贡区","沙田区","屯门区","大埔区","荃湾区","元朗区" ]
 
+def sub_tel(a):
+    i=0
+    count=0
+    while i<len(a):
+        if a[i]=='1':
+            while count<=11  and  '0'<=a[i]<='9':
+                count+=1
+                if count==11:
+                    tel=a[i-10:i+1]
+                    add=a[:i-9]+a[i+1:]
+                    break
+                i+=1
+                
+        i+=1
+    return tel,add                    
+    
+
+
 
 def get_formatted_address(address):
     #根据百度地图api接口获取正地址编码也就是经纬度
@@ -116,14 +134,14 @@ def divide_address_5(address):
             pos1 = address.find(city_[k])#福州市
             if pos1 > -1:               
                 city= city_[k]
-                address = address[pos1 + len(city_[k]):]
+                address = address[pos1 + len(city_[k])+2:]
                 break
                 
             pos1 = address.find(city_[k][0: len(city_[k]) - 1])#福州
             if pos1 > -1:
                 
                 city = city_[k]
-                address = address[pos1 + len(city_[k])- 1:]
+                address = address[pos1 + len(city_[k])+ 1:]
                 break 
             k+=1
             
@@ -230,14 +248,14 @@ def divide_address_7(address):
             pos1 = address.find(city_[k])#福州市
             if pos1 > -1:               
                 city= city_[k]
-                address = address[pos1 + len(city_[k]):]
+                address = address[pos1 + len(city_[k])+2:]
                 break
                 
             pos1 = address.find(city_[k][0: len(city_[k]) - 1])#福州
             if pos1 > -1:
                 
                 city = city_[k]
-                address = address[pos1 + len(city_[k])- 1:]
+                address = address[pos1 + len(city_[k])+1:]
                 break 
             k+=1
             
@@ -342,17 +360,18 @@ def divide_address_7(address):
                 
     return province, city, district, town, street,t1,t2
 
-  
+
 
 def main():
     add = input()
     pos = add.find(',')
     name=add[2: pos]
     temp=add[pos + 1:]
-    pattern = re.compile(r'1[0-9]{10}')
+    '''pattern = re.compile(r'1[0-9]{10}')
     a = pattern.search( add)
     tel=a.group(0)
-    temp =pattern.sub('',temp)
+    temp =pattern.sub('',temp)'''
+    tel,temp=sub_tel(temp)
     temp =temp[0:len(temp)-1]
 
     if add[0] == '1':
