@@ -345,7 +345,7 @@ def divide_address_7(address):
   
 
 def main():
-    add = "1!朱溅,上海市徐汇区漕河泾街15274130332道三江路88弄嘉萱苑."
+    add = input()
     pos = add.find(',')
     name=add[2: pos]
     temp=add[pos + 1:]
@@ -368,7 +368,7 @@ def main():
         data['姓名'] = name
         data['手机'] = tel
         data['地址'] = address
-        type(json.dumps(data, ensure_ascii=False))
+        print(json.dumps(data, ensure_ascii=False))
     
     elif add[0] == '2':
         province, city, district, town, street,t1,t2= divide_address_7(temp)
@@ -385,7 +385,7 @@ def main():
         data['姓名'] = name
         data['手机'] = tel
         data['地址'] = address
-        type(json.dumps(data, ensure_ascii=False))
+        print(json.dumps(data, ensure_ascii=False))
 
     else:
         province, city, district, town, street,street_number,t2= divide_address_7(temp)
@@ -401,11 +401,14 @@ def main():
         formattted_address=get_formatted_address(temp)
         for i in range(4):
             if level[i]=="":
-                level[i]=formattted_address[level_name[i]]
+                if formattted_address[level_name[i]]:
+                    level[i]=formattted_address[level_name[i]]
         if level[4]=="":
-            level[4]=formattted_address['streetNumber']['street']
+            if formattted_address['streetNumber']['street']:
+                level[4]=formattted_address['streetNumber']['street']
         if level[5]=="":
-            level[5]=formattted_address['streetNumber']['number']
+            if formattted_address['streetNumber']['number']:
+                level[5]=formattted_address['streetNumber']['number']
         if level[6]=="":
             if formattted_address['building']['name']:
                 level[6]=formattted_address['building']['name']
@@ -420,7 +423,7 @@ def main():
         data['手机'] = tel
         data['地址'] = level
         
-        type(json.dumps(data, ensure_ascii=False))
+        print(json.dumps(data, ensure_ascii=False))
         
 
     #print(formattted_address['district'])
