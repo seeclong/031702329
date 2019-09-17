@@ -5,7 +5,8 @@ import json
 import re
 municipality = ["北京市","上海市","天津市","重庆市" ]
 municipality2= [ "北京","上海","天津","重庆" ]
-province_ = ["河北","山西","辽宁","吉林","黑龙江","江苏","浙江","安徽","福建","江西","山东","河南","湖北","湖南","广东","海南","四川","贵州","云南","陕西","甘肃","青海","台湾","内蒙古自治区","广西壮族自治区","西藏自治区","宁夏回族自治区","新疆维吾尔自治区","香港特别行政区","澳门特别行政区 " ]
+province_ = ["河北","山西","辽宁","吉林","黑龙江","江苏","浙江","安徽","福建","江西","山东","河南","湖北","湖南","广东","海南","四川","贵州","云南","陕西","甘肃","青海","台湾"]
+province_2 =["内蒙古自治区","广西壮族自治区","西藏自治区","宁夏回族自治区","新疆维吾尔自治区","香港特别行政区","澳门特别行政区"]
 city_= [ "东城区","西城区","崇文区","宣武区","朝阳区","海淀区","丰台区","石景山区","房山区","通州区","顺义区","门头沟区","昌平区","大兴区","怀柔区","平谷区","密云县","延庆县",
 				"黄浦区","卢湾区","徐汇区","长宁区","静安区","普陀区","闸北区","虹口区","杨浦区","宝山区","闵行区","嘉定区","浦东新区","金山区","松江区","青浦区","南汇区","奉贤区","崇明县",
 				"和平区","河东区","河西区","南开区","河北区","红桥区","塘沽区","汉沽区","大港区","东丽区","西青区","津南区","北辰区","武清区","宝坻区","宁河县","静海县","蓟县",
@@ -117,10 +118,20 @@ def divide_address_5(address):
                     flag = 1
                     break
                 k+=1
+
         if flag == 0:
             k = 0
-            while k < 34:
-            
+            while k < 7:
+                pos1 = address.find(province_2[k])#自治区/特别行政区
+                if pos1 > -1:
+                    province = province_2[k]
+                    address = address[pos1+len(province_2[k]):]
+                    break                    
+                k+=1
+                
+        if flag == 0:
+            k = 0
+            while k < 23:
                 pos1 = address.find(province_[k])#福建
                 if pos1 > -1:
                     province = province_[k] + "省"
@@ -156,11 +167,12 @@ def divide_address_5(address):
     else:
         flag2=0
         pos1 = address.find("县")#闽侯县
-        if pos1 > -1:                
-            district = address[0:pos1 + 1]
-            address = address[pos1 + 1:]
-            flag2=1
-            
+        if pos1 > -1:
+            if address[pos1+1]!="道":
+                district = address[0:pos1 + 1]
+                address = address[pos1 + 1:]
+                flag2=1
+                
         if flag2==0:
             pos1 = address.find("市")#晋江市
             if pos1 > -1:
@@ -185,10 +197,10 @@ def divide_address_5(address):
             
         if flag3==0:        
             pos1 = address.find("乡")#XX乡
-            if pos1 > -1:
-                town = address[0:pos1 + 1]
-                address = address[pos1 + 1:]
-
+            if address[pos1+1]!="道":
+                if pos1 > -1:
+                    town = address[0:pos1 + 1]
+                    address = address[pos1 + 1:]
                 
     street = address
     return province, city, district, town, street
@@ -202,108 +214,10 @@ def divide_address_7(address):
     street=""
     t1=""
     t2=""
-    pos1 = address.find("省")
     k = 0
     flag=0
-    if pos1>-1:
-        province = address[0: pos1 +1 ]#福建省
-        address = address[pos1+1:]    
-    else:
-        k=0
-        while k < 4:
-            pos1 = address.find(municipality[k])#北京市
-            if pos1 > -1:
-                province = municipality[k][0:2]
-                address = address[pos1 + 3:]
-                city = municipality[k]
-                flag = 1
-                break
-            k+=1
-        if flag == 0:
-            k = 0
-            while k < 4:
-                pos1 = address.find(municipality2[k])#北京
-                if pos1 > -1:
-                    province = municipality2[k]
-                    address = address[pos1 + 2:]
-                    city = municipality[k]
-                    flag = 1
-                    break
-                k+=1
-        if flag == 0:
-            k = 0
-            while k < 34:
-            
-                pos1 = address.find(province_[k])#福建
-                if pos1 > -1:
-                    province = province_[k] + "省"
-                    address = address[pos1+2:]
-                    break                    
-                k+=1
-            
     
-    if flag == 0:
-        k = 0
-        while k < 483:
-            pos1 = address.find(city_[k])#福州市
-            if pos1 > -1:               
-                city= city_[k]
-                address = address[pos1 + len(city_[k]):]
-                break
-                
-            pos1 = address.find(city_[k][0: len(city_[k]) - 1])#福州
-            if pos1 > -1:
-                
-                city = city_[k]
-                address = address[pos1 + len(city_[k])-1:]
-                break 
-            k+=1
-            
-   
-    pos1 = address.find("区")#鼓楼区
-    if pos1 > -1:
-        
-        district = address[0:pos1 +1]
-        address = address[pos1 + 1:]
-        
-    else:
-        flag2=0
-        pos1 = address.find("县")#闽侯县
-        if pos1 > -1:                
-            district = address[0:pos1 + 1]
-            address = address[pos1 + 1:]
-            flag2=1
-            
-        if flag2==0:
-            pos1 = address.find("市")#晋江市
-            if pos1 > -1:
-                    
-                district = address[0:pos1 + 1]
-                address = address[pos1 + 1:]
-
-
-    pos1 = address.find("镇")#上街镇
-    if pos1 > -1:
-        town = address[0:pos1 + 1]
-        address = address[pos1 + 1:]
-        
-    else:
-        flag3=0
-        pos1 = address.find("街道")#XX街道
-        if pos1 > -1:
-                
-            town = address[0:pos1 + 2]
-            address = address[pos1 + 2:]
-            flag3=1
-            
-        if flag3==0:        
-            pos1 = address.find("乡")#XX乡
-            if pos1 > -1:
-                town = address[0:pos1 + 1]
-                address = address[pos1 + 1:]
-
-
-
+    province, city, district, town, address=divide_address_5(address)
     pos1 = address.find("路")#五一北路
     if pos1 > -1:
     
@@ -319,29 +233,69 @@ def divide_address_7(address):
                 street = address[0: pos1 + 1]
                 address = address[pos1 + 1:]
                 flag4=1
-        
         if flag4==0:
             pos1 = address.find("巷")#XX巷
             if pos1 > -1:
-            
+                street = address[0:pos1 + 1]
+                address = address[pos1 + 1:]
+                flag4=1
+        if flag4==0:
+            pos1 = address.find("国道")#XX国道
+            if pos1 > -1:
+                street = address[0:pos1 + 2]
+                address = address[pos1 + 2:]
+                flag4=1
+        if flag4==0:
+            pos1 = address.find("省道")#XX省道
+            if pos1 > -1:
+                street = address[0:pos1 + 2]
+                address = address[pos1 + 2:]
+                flag4=1
+        if flag4==0:
+            pos1 = address.find("乡道")#XX乡道
+            if pos1 > -1:            
+                street = address[0:pos1 + 2]
+                address = address[pos1 + 2:]
+                flag4=1            
+        if flag4==0:
+            pos1 = address.find("县道")#XX县道
+            if pos1 > -1  :                   
+                street = address[0: pos1 + 2]
+                address = address[pos1 + 2:]
+                flag4=1
+        if flag4==0:
+            pos1 = address.find("大道")#XX大道
+            if pos1 > -1  :                   
+                street = address[0: pos1 + 2]
+                address = address[pos1 + 2:]
+                flag4=1
+        if flag4==0:
+            pos1 = address.find("街区")#XX街区
+            if pos1 > -1  :                   
+                street = address[0: pos1 + 2]
+                address = address[pos1 + 2:]
+                flag4=1 
+        '''if flag4==0:
+            pos1 = address.find("村")#XX村
+            if pos1 > -1 and address[pos1+1]!="委":           
                     street = address[0:pos1 + 1]
                     address = address[pos1 + 1:]
-                    flag4=1
-            
-            if flag4==0:
-                pos1 = address.find("村")#XX村
-                if pos1 > -1:
-                
-                        street = address[0:pos1 + 1]
-                        address = address[pos1 + 1:]
-                        flag4=1
-                
-                if flag==0:
-                    pos1 = address.find("社区")#XX社区
-                    if pos1 > -1  :                   
-                        street = address[0: pos1 + 2]
-                        address = address[pos1 + 2:]
-                        flag4=1
+                    flag4=1'''
+        if flag4==0:
+            pos1 = address.find("里")#XX里
+            if pos1 > -1:           
+                    street = address[0:pos1 + 1]
+                    address = address[pos1 + 1:]
+                    flag4=1   
+        if flag4==0:
+            pos1 = address.find("社区")#XX社区
+            if pos1 > -1  :                   
+                street = address[0: pos1 + 2]
+                address = address[pos1 + 2:]
+                flag4=1
+                                    
+
+                        
                         
     
 
