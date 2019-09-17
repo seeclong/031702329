@@ -147,17 +147,18 @@ def divide_address_5(address):
             if pos1 > -1:               
                 city= city_[k]
                 address = address[pos1 + len(city_[k]):]
+                flag=1
                 break
                 
             pos1 = address.find(city_[k][0: len(city_[k]) - 1])#福州
             if pos1 > -1:
-                
+                flag=1
                 city = city_[k]
                 address = address[pos1 + len(city_[k])-1:]
                 break 
             k+=1
+
             
-   
     pos1 = address.find("区")#鼓楼区
     if pos1 > -1:
         
@@ -176,9 +177,17 @@ def divide_address_5(address):
         if flag2==0:
             pos1 = address.find("市")#晋江市
             if pos1 > -1:
-                    
                 district = address[0:pos1 + 1]
                 address = address[pos1 + 1:]
+                flag2=1
+
+        if flag2==0:
+            pos1 = address.find("旗")#XX旗
+            if pos1 > -1: 
+                district = address[0:pos1 + 1]
+                address = address[pos1 + 1:]
+                flag2=1;
+        
 
 
     pos1 = address.find("镇")#上街镇
@@ -201,6 +210,12 @@ def divide_address_5(address):
                 if pos1 > -1:
                     town = address[0:pos1 + 1]
                     address = address[pos1 + 1:]
+        if flag3==0:        
+            pos1 = address.find("苏木")#XX苏木
+
+            if pos1 > -1:
+                town = address[0:pos1 + 2]
+                address = address[pos1 + 2:]
                 
     street = address
     return province, city, district, town, street
