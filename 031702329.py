@@ -198,7 +198,7 @@ def divide_address_5(address):
     else:
         flag3=0
         pos1 = address.find("街道")#XX街道
-        if len(address)-1==pos1 or (len(address)>pos1+1 and address[pos1+1]!="办"):
+        if len(address)-1==pos1+1 or (len(address)>pos1+2 and address[pos1+2]!="办"):
             if pos1 > -1:      
                 town = address[0:pos1 + 2]
                 address = address[pos1 + 2:]
