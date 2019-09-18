@@ -1,4 +1,5 @@
-﻿import requests
+﻿#-*- coding: utf-8 -*- 
+import requests
 import json
 import re
 municipality = ["北京市","上海市","天津市","重庆市" ]
