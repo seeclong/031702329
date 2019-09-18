@@ -13,7 +13,7 @@ city_= [ "东城区","西城区","崇文区","宣武区","朝阳区","海淀区"
 				"渝中区","大渡口区","江北区","沙坪坝区","九龙坡区","南岸区","北碚区","万盛区","双桥区","渝北区","巴南区","万县区","涪陵区","永川市","合川市","江津市","南川市","长寿县","綦江县","潼南县","荣昌县","壁山县","大足县","铜梁县","梁平县","城口县","垫江县","武隆县","丰都县","忠县","县开县","云阳县","青龙镇青龙嘴","奉节县","巫山县","巫溪县","南宾镇","中和镇","钟多镇","联合镇","汉葭镇",
 				"石家庄市","唐山市","秦皇岛市","邯郸市","邢台市","保定市","张家口市","承德市","沧州市","廊坊市","衡水市",
 				"太原市","大同市","阳泉市","长治市","晋城市","朔州市","晋中市","运城市","忻州市","临汾市","吕梁市",
-				"沈阳市","大连市","鞍山市","抚顺市","本溪市","丹东市","锦州市","营口市","阜新市","辽阳市","盘锦市","铁岭市","朝阳市","葫芦岛市",
+				"沈阳市","大连市","鞍山连市","抚顺市","本溪市","丹东市","锦州市","营口市","阜新市","辽阳市","盘锦市","铁岭市","朝阳市","葫芦岛市",
 				"长春市","吉林市","四平市","辽源市","通化市","白山市","松原市","白城市","延边朝鲜族自治州",
 				"郑州市","开封市","洛阳市","平顶山市","安阳市","鹤壁市","新乡市","焦作市","濮阳市","许昌市","漯河市","三门峡市","南阳市","商丘市","信阳市","周口市","驻马店市","济源市",
 				"南京市","无锡市","徐州市","常州市","苏州市","南通市","连云港市","淮安市","盐城市","扬州市","镇江市","泰州市","宿迁市",
@@ -89,14 +89,27 @@ def divide_address_5(address):
     district=""
     town=""
     street=""
-    pos1 = address.find("省")
-    k = 0
     flag=0
-    if pos1>-1:
-        province = address[0: pos1 +1 ]#/福建省
-        address = address[pos1+1:]
-    
-    else:
+    flag_d=0
+    flag_e=0
+    k = 0
+    while k < 23:
+        pos1 = address.find(province_[k])#福建
+        if pos1 > -1:
+            province = province_[k] + "省"
+            address = address[pos1+2:]
+            flag=1
+            break                    
+        k+=1
+        
+    if flag==0:
+        pos1 = address.find("省")
+        if pos1>-1:
+            province = address[0: pos1 +1 ]#/福建省
+            address = address[pos1+1:]
+            flag=1
+            
+    if flag==0:
         k=0
         while k < 4:
             pos1 = address.find(municipality[k])#北京市
@@ -105,63 +118,62 @@ def divide_address_5(address):
                 address = address[pos1 + 3:]
                 city = municipality[k]
                 flag = 1
+                flag_d=1
                 break
             k+=1
-        if flag == 0:
-            k = 0
-            while k < 4:
-                pos1 = address.find(municipality2[k])#北京
-                if pos1 > -1:
-                    province = municipality2[k]
-                    address = address[pos1 + 2:]
-                    city = municipality[k]
-                    flag = 1
-                    break
-                k+=1
+            
+    if flag == 0:
+        k = 0
+        while k < 4:
+            pos1 = address.find(municipality2[k])#北京
+            if pos1 > -1:
+                province = municipality2[k]
+                address = address[pos1 + 2:]
+                city = municipality[k]
+                flag = 1
+                flag_d=1
+                break
+            k+=1
 
-        if flag == 0:
-            k = 0
-            while k < 7:
-                pos1 = address.find(province_2[k])#自治区/特别行政区
-                if pos1 > -1:
-                    province = province_2[k]
-                    address = address[pos1+len(province_2[k]):]
-                    break                    
-                k+=1
+    if flag == 0:
+        k = 0
+        while k < 7:
+            pos1 = address.find(province_2[k])#自治区/特别行政区
+            if pos1 > -1:
+                province = province_2[k]
+                address = address[pos1+len(province_2[k]):]
+                break                    
+            k+=1
                 
-        if flag == 0:
-            k = 0
-            while k < 23:
-                pos1 = address.find(province_[k])#福建
-                if pos1 > -1:
-                    province = province_[k] + "省"
-                    address = address[pos1+2:]
-                    break                    
-                k+=1
+     
             
     
-    if flag == 0:
+    if flag_d == 0:
         k = 0
         while k < 483:
             pos1 = address.find(city_[k])#福州市
             if pos1 > -1:               
                 city= city_[k]
                 address = address[pos1 + len(city_[k]):]
-                flag=1
+                flag_e=1
                 break
-                
-            pos1 = address.find(city_[k][0: len(city_[k]) - 1])#福州
-            if pos1 > -1:
-                if city_[k][-1]=="市":
-                    flag=1
-                    city = city_[k]
-                    address = address[pos1 + len(city_[k])-1:]
-                    break 
             k+=1
+        if flag_e==0:
+            k=0
+            while k < 483:
+                pos1 = address.find(city_[k][0: len(city_[k]) - 1])#福州
+                if pos1 > -1:
+                    if city_[k][-1]=="市":
+                        flag=1
+                        city = city_[k]
+                        address = address[pos1 + len(city_[k])-1:]
+                        break 
+                k+=1
+            
 
             
     pos1 = address.find("区")#鼓楼区
-    if pos1 > -1 and (not('0'<=address[pos1-1]<='9'))and address[pos1-1]!="小" and address[pos1-1]!="一" and address[pos1-1]!="二" and address[pos1-1]!="三" and address[pos1-1]!="四" and address[pos1-1]!="五" and address[pos1-1]!="六" and address[pos1-1]!="七" and address[pos1-1]!="八" and address[pos1-1]!="九" :
+    if pos1 > -1 and (not('0'<=address[pos1-1]<='9'))and address[pos1-1]!="小" and address[pos1-1]!="一" and address[pos1-1]!="二" and address[pos1-1]!="三" and address[pos1-1]!="四" and address[pos1-1]!="五" and address[pos1-1]!="六" and address[pos1-1]!="七" and address[pos1-1]!="八" and address[pos1-1]!="九"and address[pos1-1]!="社" :
         
         district = address[0:pos1 +1]
         address = address[pos1 + 1:]
