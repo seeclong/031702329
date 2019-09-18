@@ -169,7 +169,7 @@ def divide_address_5(address):
         flag2=0
         pos1 = address.find("县")#闽侯县
         if pos1 > -1:
-            if address[pos1+1]!="道":
+            if  len(address)-1==pos1 or (len(address)>pos1+1 and address[pos1+1]!="道"):
                 district = address[0:pos1 + 1]
                 address = address[pos1 + 1:]
                 flag2=1
@@ -206,7 +206,7 @@ def divide_address_5(address):
             
         if flag3==0:        
             pos1 = address.find("乡")#XX乡
-            if address[pos1+1]!="道":
+            if len(address)-1==pos1 or (len(address)>pos1+1 and address[pos1+1]!="道"):
                 if pos1 > -1:
                     town = address[0:pos1 + 1]
                     address = address[pos1 + 1:]
