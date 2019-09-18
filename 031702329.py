@@ -161,7 +161,7 @@ def divide_address_5(address):
 
             
     pos1 = address.find("区")#鼓楼区
-    if pos1 > -1 and (not('0'<=address[pos1-1]<='9')and address[pos1-1]!="小" and address[pos1-1]!="一" and address[pos1-1]!="二" and address[pos1-1]!="三" and address[pos1-1]!="四" and address[pos1-1]!="五" and address[pos1-1]!="六" and address[pos1-1]!="七" and address[pos1-1]!="八" and address[pos1-1]!="九" ):
+    if pos1 > -1 and (not('0'<=address[pos1-1]<='9'))and address[pos1-1]!="小" and address[pos1-1]!="一" and address[pos1-1]!="二" and address[pos1-1]!="三" and address[pos1-1]!="四" and address[pos1-1]!="五" and address[pos1-1]!="六" and address[pos1-1]!="七" and address[pos1-1]!="八" and address[pos1-1]!="九" :
         
         district = address[0:pos1 +1]
         address = address[pos1 + 1:]
@@ -181,14 +181,13 @@ def divide_address_5(address):
                 district = address[0:pos1 + 1]
                 address = address[pos1 + 1:]
                 flag2=1
-'''
-        if flag2==0:
+
+        '''if flag2==0:
             pos1 = address.find("旗")#XX旗
             if pos1 > -1: 
                 district = address[0:pos1 + 1]
                 address = address[pos1 + 1:]
-                flag2=1;
- '''       
+                flag2=1'''
 
 
     pos1 = address.find("镇")#上街镇
