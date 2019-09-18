@@ -1,5 +1,5 @@
-#!/usr/bin/env python
-#-*- coding: utf-8 -*- 
+﻿#!/usr/bin/env python
+# coding=gbk
 import requests
 import json
 import re
