@@ -334,14 +334,15 @@ def divide_address_7(address):
 def main():
     add = input()
     pos = add.find(',')
-    name=add[2: pos]
+    pos_n=add.find('!')
+    name=add[pos_n+1: pos]
     temp=add[pos + 1:]
-    '''pattern = re.compile(r'1[0-9]{10}')
+    pattern = re.compile(r'1[0-9]{10}')
     a = pattern.search( add)
     tel=a.group(0)
-    temp =pattern.sub('',temp)'''
+    temp =pattern.sub('',temp)
 
-    tel,temp=sub_tel(temp)
+    #tel,temp=sub_tel(temp)
     
     temp =temp[0:len(temp)-1]
     if add[0] == '1':
