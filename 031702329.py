@@ -95,19 +95,25 @@ def divide_address_5(address):
     k = 0
     while k < 23:
         pos1 = address.find(province_[k])#福建
-        if pos1 > -1:
-            province = province_[k] + "省"
-            address = address[pos1+2:]
-            flag=1
+        if pos1 > -1 :
+            if address[pos1+2]=="省":
+                province = province_[k]+ "省"
+                address = address[pos1+3:]
+                flag=1
+                
+            else:
+                province = province_[k] + "省"
+                address = address[pos1+2:]
+                flag=1
             break                    
         k+=1
         
-    if flag==0:
+    '''if flag==0:
         pos1 = address.find("省")
         if pos1>-1:
             province = address[0: pos1 +1 ]#/福建省
             address = address[pos1+1:]
-            flag=1
+            flag=1'''
             
     if flag==0:
         k=0
@@ -150,25 +156,31 @@ def divide_address_5(address):
     
     if flag_d == 0:
         k = 0
-        while k < 483:
-            pos1 = address.find(city_[k])#福州市
-            if pos1 > -1:               
-                city= city_[k]
-                address = address[pos1 + len(city_[k]):]
-                flag_e=1
-                break
-            k+=1
-        if flag_e==0:
-            k=0
+        pos1 = address.find("自治州")#自治州
+        if pos1 > -1:               
+            city= address[:pos1+3]
+            address = address[pos1 +3:]
+            flag_e=1
+        else:
             while k < 483:
-                pos1 = address.find(city_[k][0: len(city_[k]) - 1])#福州
-                if pos1 > -1:
-                    if city_[k][-1]=="市":
-                        flag=1
-                        city = city_[k]
-                        address = address[pos1 + len(city_[k])-1:]
-                        break 
+                pos1 = address.find(city_[k])#福州市
+                if pos1 > -1:               
+                    city= city_[k]
+                    address = address[pos1 + len(city_[k]):]
+                    flag_e=1
+                    break
                 k+=1
+            if flag_e==0:
+                k=0
+                while k < 483:
+                    pos1 = address.find(city_[k][0: len(city_[k]) - 1])#福州
+                    if pos1 > -1:
+                        if city_[k][-1]=="市":
+                            flag=1
+                            city = city_[k]
+                            address = address[pos1 + len(city_[k])-1:]
+                            break 
+                    k+=1
             
 
             
@@ -328,7 +340,7 @@ def divide_address_7(address):
     
 
     pos1 = address.find("号")#xx号
-    if pos1 > -1:
+    if pos1 > -1 and ((pos1+1<= len(address)-1 and address[pos1+1]!="楼")or pos1== len(address)-1):
         t1 = address[0:pos1 + 1]
         address = address[pos1 + 1:]
     else:
