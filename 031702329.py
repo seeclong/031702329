@@ -1509,16 +1509,16 @@ def divide_address_5(address):
     else:
         flag3=0
         pos1 = address.find("街道")#XX街道
-        if len(address)-1==pos1+1 or (len(address)>pos1+2 and address[pos1+2]!="办"):
-            if pos1 > -1:      
+        if pos1 > -1:
+            if len(address)-1==pos1+1 or (len(address)>pos1+2 and address[pos1+2]!="办"):
                 town = address[0:pos1 + 2]
                 address = address[pos1 + 2:]
                 flag3=1
             
         if flag3==0:        
             pos1 = address.find("乡")#XX乡
-            if len(address)-1==pos1 or (len(address)>pos1+1 and address[pos1+1]!="道"and address[pos1+1]!="村"):
-                if pos1 > -1:
+            if pos1 > -1:
+                if len(address)-1==pos1 or (len(address)>pos1+1 and address[pos1+1]!="道"and address[pos1+1]!="村"):
                     town = address[0:pos1 + 1]
                     address = address[pos1 + 1:]
         if flag3==0:        
@@ -1560,8 +1560,8 @@ def divide_address_7(address):
     
         flag4=0
         pos1 = address.find("街")#XX街
-        if  len(address)-1==pos1 or (len(address)>pos1+1 and address[pos1+1]!="道"):
-        
+        if pos1 > -1:
+            if  len(address)-1==pos1 or (len(address)>pos1+1 and address[pos1+1]!="道"):
                 street = address[0: pos1 + 1]
                 address = address[pos1 + 1:]
                 flag4=1
@@ -1606,7 +1606,13 @@ def divide_address_7(address):
             if pos1 > -1  :                   
                 street = address[0: pos1 + 2]
                 address = address[pos1 + 2:]
-                flag4=1 
+                flag4=1
+        if flag4==0:
+            pos1 = address.find("胡同")#XX胡同
+            if pos1 > -1:           
+                street = address[0:pos1 + 2]
+                address = address[pos1 + 2:]
+                flag4=1
         '''if flag4==0:
             pos1 = address.find("村")#XX村
             if pos1 > -1 and address[pos1+1]!="委":           
@@ -1712,6 +1718,9 @@ def main():
             if level[i]=="":
                 if formattted_address[level_name[i]]:
                     level[i]=formattted_address[level_name[i]]
+
+        if level[0][-1]=="市":
+            level[1]=level[0][0:2]
         '''if level[4]=="":
             if formattted_address['streetNumber']['street']:
                 level[4]=formattted_address['streetNumber']['street']
